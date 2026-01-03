@@ -11,8 +11,9 @@ COPY package*.json ./
 COPY ./src ./src
 COPY ./public ./public
 
-# Install node packages, install serve, build the app, and remove dependencies at the end
-RUN npm install \
+# Install node packages, install serve, build the app, install ShellCheck (for linting), and remove dependencies at the end
+RUN apk add --no-cache shellcheck \
+    && npm install \
     && npm install -g serve@latest \
     && npm run build \
     && rm -fr node_modules
